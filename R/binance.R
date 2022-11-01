@@ -42,9 +42,13 @@ binance_key <- function() {
 #' @examples \dontrun{
 #' binance_credentials('foo', 'bar')
 #' }
-binance_credentials <- function(key, secret) {
+binance_credentials <- function(key, secret, destination='prod') {
     credentials$key <- key
     credentials$secret <- secret
+    if (!(destination %in% c('prod', 'uat'))) {
+      stop("wrong destination, should be either prod or uat")
+    }
+    credentials$destination <- destination
 }
 
 
@@ -94,9 +98,13 @@ binance_sign <- function(params) {
 #' @importFrom utils assignInMyNamespace
 binance_query <- function(endpoint, method = 'GET',
                           params = list(), body = NULL, sign = FALSE,
-                          retry = method == 'GET', content_as = 'parsed', destination = 'prod') {
+                          retry = method == 'GET', content_as = 'parsed') {
 
     # if Binance weight is approaching the limit of 1200, wait for the next full minute
+    if (is.null(credentials$destination)){
+      stop("no destination has been set.")
+    }
+    
     if (BINANCE_WEIGHT > 1159) {
         Sys.sleep(61 - as.integer(format(Sys.time(), "%S")))
     }
@@ -111,7 +119,7 @@ binance_query <- function(endpoint, method = 'GET',
     }
 
     res <- query(
-        base = ifelse(destination == 'prod', 'https://api.binance.com','https://testnet.binance.vision'),
+        base = ifelse(credentials$destination == 'prod', 'https://api.binance.com','https://testnet.binance.vision'),
         path = endpoint,
         method = method,
         params = params,
