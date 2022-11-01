@@ -112,7 +112,8 @@ binance_query <- function(endpoint, method = 'GET',
 
     # if Binance weight is approaching the limit of 1200, wait for the next full minute
     if (is.null(credentials$destination)){
-      stop("no destination has been set.")
+      print("no destination has been set, defaulting to prod.")
+      credentials$destination <- "prod"
     }
     
     if (BINANCE_WEIGHT > 1159) {
