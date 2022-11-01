@@ -15,6 +15,7 @@ timestamp <- function() {
 #' @param config httr::config
 #' @param retry allow retrying the query on failure
 #' @param retries internal counter of previous retries
+#' @export
 #' @return raw object returned by \code{httr}
 #' @keywords internal
 #' @importFrom httr GET POST PUT DELETE config add_headers

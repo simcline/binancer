@@ -86,13 +86,15 @@ binance_sign <- function(params) {
 #' @inheritParams query
 #' @param sign if signature required
 #' @param content_as parameter to httr::content
+#' @param destination default is 'prod', either 'uat' or 'prod'
+#' @export
 #' @return R object
 #' @keywords internal
 #' @importFrom httr headers add_headers content
 #' @importFrom utils assignInMyNamespace
 binance_query <- function(endpoint, method = 'GET',
                           params = list(), body = NULL, sign = FALSE,
-                          retry = method == 'GET', content_as = 'parsed') {
+                          retry = method == 'GET', content_as = 'parsed', destination = 'prod') {
 
     # if Binance weight is approaching the limit of 1200, wait for the next full minute
     if (BINANCE_WEIGHT > 1159) {
@@ -109,7 +111,7 @@ binance_query <- function(endpoint, method = 'GET',
     }
 
     res <- query(
-        base = 'https://api.binance.com',
+        base = ifelse(destination == 'prod', 'https://api.binance.com','https://testnet.binance.vision'),
         path = endpoint,
         method = method,
         params = params,

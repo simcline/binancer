@@ -11,7 +11,8 @@ binance_query(
   body = NULL,
   sign = FALSE,
   retry = method == "GET",
-  content_as = "parsed"
+  content_as = "parsed",
+  destination = "prod"
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ binance_query(
 \item{retry}{allow retrying the query on failure}
 
 \item{content_as}{parameter to httr::content}
+
+\item{destination}{default is 'prod', either 'uat' or 'prod'}
 }
 \value{
 R object
