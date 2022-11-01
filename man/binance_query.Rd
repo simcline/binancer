@@ -11,8 +11,7 @@ binance_query(
   body = NULL,
   sign = FALSE,
   retry = method == "GET",
-  content_as = "parsed",
-  destination = "prod"
+  content_as = "parsed"
 )
 }
 \arguments{

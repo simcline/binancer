@@ -33,6 +33,12 @@ binance_key <- function() {
     credentials$key
 }
 
+#' check which destination is active
+#'
+#' @return the destination
+#' @export
+#'
+#' @examples
 binance_get_destination <- function(){
   credentials$destination
 }

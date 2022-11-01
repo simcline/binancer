@@ -4,7 +4,7 @@
 \alias{binance_credentials}
 \title{Sets the API key and secret to interact with the Binance API}
 \usage{
-binance_credentials(key, secret)
+binance_credentials(key, secret, destination = "prod")
 }
 \arguments{
 \item{key}{string}
